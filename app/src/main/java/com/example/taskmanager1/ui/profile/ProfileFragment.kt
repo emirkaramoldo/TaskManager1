@@ -45,8 +45,6 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         saveName()
         saveImage()
-
-
     }
 
     private fun saveImage() {
@@ -59,7 +57,6 @@ class ProfileFragment : Fragment() {
         }
 
     }
-
     private fun saveName() {
         binding.etName.setText(pref.getName())
         binding.etName.addTextChangedListener {
