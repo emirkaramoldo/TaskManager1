@@ -52,8 +52,8 @@ class TaskAdapter(
             }
             binding.checkbox.isChecked = task.isSuccess
             if (task.isSuccess){
-                tvTitle.paintFlags = tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
-                tvDesc.paintFlags = tvDesc.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG
+                tvTitle.paintFlags = tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvDesc.paintFlags = tvDesc.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             }
             else{
                 tvTitle.paintFlags = 0
