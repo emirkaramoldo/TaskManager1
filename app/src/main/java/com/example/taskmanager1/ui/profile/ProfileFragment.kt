@@ -1,6 +1,7 @@
 package com.example.taskmanager1.ui.profile
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -8,15 +9,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
-import com.bumptech.glide.Glide
+import androidx.navigation.fragment.findNavController
+import com.example.taskmanager1.R
 
 import com.example.taskmanager1.data.local.Pref
 import com.example.taskmanager1.databinding.FragmentProfileBinding
 import com.example.taskmanager1.utils.loadImage
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
+    private lateinit var mAuth: FirebaseAuth
     private lateinit var binding: FragmentProfileBinding
 
     private val pref: Pref by lazy {
@@ -32,6 +37,7 @@ class ProfileFragment : Fragment() {
             }
         }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,12 +45,15 @@ class ProfileFragment : Fragment() {
     ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         saveName()
         saveImage()
+        mAuth = FirebaseAuth.getInstance()
+        initClickers()
     }
 
     private fun saveImage() {
@@ -63,4 +72,21 @@ class ProfileFragment : Fragment() {
             pref.saveName(binding.etName.text.toString())
         }
     }
-}
+
+    private fun initClickers() {
+        with(binding) {
+            btnLogout.setOnClickListener {
+                val alert = AlertDialog.Builder(requireContext())
+                    .setTitle("Вы действительно хотите выйти?")
+                    .setPositiveButton("Да"){_, _ ->
+                        mAuth.signOut()
+                        findNavController().navigate(R.id.authFragment)
+                        Toast.makeText(requireContext(), "Вы вышли из аккаунта", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton("Нет"){dialog, _ -> dialog.dismiss()
+                    }
+                alert.create().show()
+            }
+            }
+        }
+    }

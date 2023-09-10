@@ -11,4 +11,7 @@
     <string name="phone">Phone</string>
     <string name="code">Code</string>
     <string name="google">Google</string>
+    <string name="logout">Logout</string>
+    <string name="name">Name</string>
+    <string name="director">Director</string>
 </resources>
